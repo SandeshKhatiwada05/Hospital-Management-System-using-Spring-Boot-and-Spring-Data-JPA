@@ -1,5 +1,6 @@
 package com.sandesh.springDataJpaHospitalManagement.entity;
 
+import com.sandesh.springDataJpaHospitalManagement.entity.type.GenderType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,12 +32,17 @@ public class Patient {
 
     @Column(name = "patient's name", nullable = false)
     private String name;
+
     private LocalDate dob;
-    private String gender;
+
+    @Enumerated(EnumType.STRING)
+    private GenderType gender;
+
     private String email;
 
     @Column(unique = true)
     private Long phoneNumber;
+
     private int age;
 
     @CreationTimestamp
