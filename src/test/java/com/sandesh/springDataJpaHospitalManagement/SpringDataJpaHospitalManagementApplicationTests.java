@@ -12,14 +12,14 @@ import java.util.TimeZone;
 @SpringBootTest
 class SpringDataJpaHospitalManagementApplicationTests {
 
-	@Autowired
-	private PatientRepository patientRepository;
-
-	@Test
-    void testPatients(){
-		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-		List<Patient> patient = patientRepository.findAll();
-		System.out.println(patient);
-	}
+		@Autowired
+		private PatientRepository patientRepository;
+	
+		@Test
+		void testPatients(){
+			TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+			List<Patient> patient = patientRepository.findAll();
+			System.out.println(patient);
+		}
 
 }
