@@ -1,0 +1,72 @@
+ 1. Dropping a table
+
+    If you want to drop your Spring Boot-created table (Patient_Db):
+
+    DROP TABLE IF EXISTS "Patient_Db";
+
+
+    Important: Postgres is case-sensitive for quoted identifiers. Without quotes, Patient_Db becomes patient_db.
+
+    This will completely remove the table and all its data.
+
+
+ 2. Basic PostgreSQL commands
+
+    List databases
+
+    \l
+
+
+    Connect to a database
+
+    \c database_name
+
+
+    List tables in current database
+
+    \dt
+
+
+    Describe table structure
+
+    \d table_name
+
+
+    Select all rows
+
+    SELECT * FROM table_name;
+
+
+    Insert data
+
+    INSERT INTO table_name (col1, col2, ...) VALUES (val1, val2, ...);
+
+
+    Delete table
+
+    DROP TABLE table_name;
+
+
+    Clear screen (does not exist in psql)
+
+    clear doesn’t work in psql, use your terminal’s Ctrl+L instead.
+
+    List sequences
+
+    \d
+
+
+    Help in psql
+
+    \?
+
+ 3. Notes on your Spring Boot entity
+
+    Column name "patient's name" is a terrible idea — the apostrophe and spaces will cause issues in queries. Postgres will require quotes every time:
+
+    INSERT INTO "Patient_Db" ("patient's name", dob, gender, email, phoneNumber, age) VALUES (...);
+
+
+    Better: patient_name or name. Avoid spaces and special characters.
+
+    phoneNumber is mapped to phoneNumber in Spring Boot but the DB might convert it to snake_case automatically (phone_number). Check generated table using \d "Patient_Db".
