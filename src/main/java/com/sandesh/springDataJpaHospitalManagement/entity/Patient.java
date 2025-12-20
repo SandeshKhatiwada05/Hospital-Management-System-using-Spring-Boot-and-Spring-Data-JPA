@@ -1,9 +1,6 @@
 package com.sandesh.springDataJpaHospitalManagement.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,6 +11,17 @@ import java.time.LocalDate;
 @ToString
 @Getter
 @Setter
+@Table(
+        name = "Patient_Db",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "unique_patient_name", columnNames = {"phoneNumber"}),
+                //sandesh with gmail kh@gmail.com cannot be created two times
+                @UniqueConstraint(name = "unique_email_phone", columnNames = {"name", "email"})
+        },
+        indexes = {
+                @Index(name = "indx_name", columnList = "name")
+        }
+)
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +29,7 @@ public class Patient {
     private String name;
     private LocalDate dob;
     private String gender;
+    private String email;
+    private Long phoneNumber;
     private int age;
 }
