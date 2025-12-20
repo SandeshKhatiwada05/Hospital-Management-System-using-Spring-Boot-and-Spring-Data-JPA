@@ -2,8 +2,10 @@ package com.sandesh.springDataJpaHospitalManagement.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -14,7 +16,7 @@ import java.time.LocalDate;
 @Table(
         name = "Patient_Db",
         uniqueConstraints = {
-                @UniqueConstraint(name = "unique_patient_name", columnNames = {"phoneNumber"}),
+//                @UniqueConstraint(name = "unique_patient_name", columnNames = {"phoneNumber"}),
                 //sandesh with gmail kh@gmail.com cannot be created two times
                 @UniqueConstraint(name = "unique_email_phone", columnNames = {"name", "email"})
         },
@@ -26,10 +28,18 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "patient's name", nullable = false)
     private String name;
     private LocalDate dob;
     private String gender;
     private String email;
+
+    @Column(unique = true)
     private Long phoneNumber;
     private int age;
+
+    @CreationTimestamp
+    @Column(updatable = false) //@CreationTimestamp does better, not required
+    private LocalDateTime createAt;
 }
