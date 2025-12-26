@@ -67,6 +67,6 @@
     INSERT INTO "Patient_Db" ("patient's name", dob, gender, email, phoneNumber, age) VALUES (...);
 
 
-    Better: patient_name or name. Avoid spaces and special characters.
+    Better: patient_name or name. Avoid spaces a    nd special characters.
 
     phoneNumber is mapped to phoneNumber in Spring Boot but the DB might convert it to snake_case automatically (phone_number). Check generated table using \d "Patient_Db".

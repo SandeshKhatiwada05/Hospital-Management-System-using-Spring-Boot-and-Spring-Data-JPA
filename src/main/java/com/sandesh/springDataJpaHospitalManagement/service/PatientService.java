@@ -1,10 +1,14 @@
 package com.sandesh.springDataJpaHospitalManagement.service;
 
 import com.sandesh.springDataJpaHospitalManagement.entity.Patient;
+import com.sandesh.springDataJpaHospitalManagement.entity.type.GenderType;
 import com.sandesh.springDataJpaHospitalManagement.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+import java.util.Objects;
 
 @Service
 
@@ -28,8 +32,23 @@ public class PatientService {
     }
 
     public Patient getPatientName(String name) {
-        Patient patient = patientRepository.findByName(name);
-        return patient;
+        Patient p = patientRepository.findByName(name);
+        return p;
+    }
+
+    public List<Patient> getAllPatientsByGender(String gender) {
+        List<Patient> patientByGender = patientRepository.findByGender(GenderType.valueOf(gender));
+        return patientByGender;
+    }
+
+    public List<Patient> getAllPatientsByAge(int age) {
+        List<Patient> patientByAge = patientRepository.findByAge(age);
+        return patientByAge;
+    }
+
+    public List<Object[]> getAllGenderCount(){
+        List<Object[]> list = patientRepository.findByGenderCount();
+        return list;
     }
 }
 
