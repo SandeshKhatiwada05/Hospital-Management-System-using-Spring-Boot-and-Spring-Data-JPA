@@ -21,4 +21,10 @@ public class PatientController {
 
         return p1;
     }
+
+    @GetMapping("/getPatientName/{name}")
+    public Patient getPatientName(@PathVariable String name){
+        Patient patientbyName = patientService.getPatientName(name);
+        return patientbyName;
+    }
 }

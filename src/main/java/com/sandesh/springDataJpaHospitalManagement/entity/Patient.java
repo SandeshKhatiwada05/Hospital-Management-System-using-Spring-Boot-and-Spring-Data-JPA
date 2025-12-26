@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Table(
         name = "Patient_Db",
         uniqueConstraints = {
-//                @UniqueConstraint(name = "unique_patient_name", columnNames = {"phoneNumber"}),
+                //@UniqueConstraint(name = "unique_patient_name", columnNames = {"phoneNumber"}),
                 //sandesh with gmail kh@gmail.com cannot be created two times
                 @UniqueConstraint(name = "unique_email_phone", columnNames = {"name", "email"})
         },
