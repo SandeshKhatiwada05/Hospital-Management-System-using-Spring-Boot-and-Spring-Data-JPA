@@ -39,9 +39,15 @@ public class PatientController {
         return new ArrayList<>(patientList);
     }
 
-    @GetMapping("listOfGenders")
+    @GetMapping("/listOfGenders")
     public List<Object[]> getListOfGenders(){
         List<Object[]> list = patientService.getAllGenderCount();
         return list;
+    }
+
+    @GetMapping("/allPatientNativeQuery")
+    public ArrayList<Patient> getAllPatientNativeQuery(){
+        List<Patient> allPatientViaNativeMethod = patientService.getAllPatientByNativeQuery();
+        return new ArrayList<>(allPatientViaNativeMethod);
     }
 }

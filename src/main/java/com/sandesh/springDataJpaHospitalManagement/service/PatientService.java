@@ -50,6 +50,11 @@ public class PatientService {
         List<Object[]> list = patientRepository.findByGenderCount();
         return list;
     }
+
+    public List<Patient> getAllPatientByNativeQuery(){
+        List<Patient> patientList = patientRepository.findAllPatientsNativeQuery();
+        return patientList;
+    }
 }
 
 

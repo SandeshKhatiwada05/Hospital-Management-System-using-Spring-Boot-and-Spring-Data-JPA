@@ -22,4 +22,7 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
 
     @Query("SELECT p.gender, COUNT(p) FROM Patient p GROUP BY p.gender")
     List<Object[]> findByGenderCount();
+
+    @Query(value = "select * from Patient_Db", nativeQuery = true)
+    List<Patient> findAllPatientsNativeQuery();
 }
