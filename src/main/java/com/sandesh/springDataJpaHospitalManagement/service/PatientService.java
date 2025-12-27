@@ -3,12 +3,10 @@ package com.sandesh.springDataJpaHospitalManagement.service;
 import com.sandesh.springDataJpaHospitalManagement.entity.Patient;
 import com.sandesh.springDataJpaHospitalManagement.entity.type.GenderType;
 import com.sandesh.springDataJpaHospitalManagement.repository.PatientRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 
@@ -22,8 +20,8 @@ public class PatientService {
 
 //    @Transactional
     public Patient getPatientID(Long id) {
-        Patient p1 = patientRepository.findById(id).orElse(null);
-        Patient p2 = patientRepository.findById(id).orElse(null);
+        Patient p1 = (Patient) patientRepository.findById(id).orElse(null);
+        Patient p2 = (Patient) patientRepository.findById(id).orElse(null);
         System.out.println(p1 == p2);
 
         p1.setAge(23); //this is managed by transactional and doesnot need to be saved
@@ -55,6 +53,10 @@ public class PatientService {
         List<Patient> patientList = patientRepository.findAllPatientsNativeQuery();
         return patientList;
     }
+
+//    public List<Patient> getAllPatientByNativeQuery(PageRequest pageRequest) {
+//        return patientRepository.findAllPatientsNativeQuery(pageRequest);
+//    }
 }
 
 

@@ -3,6 +3,8 @@ package com.sandesh.springDataJpaHospitalManagement.controller;
 import com.sandesh.springDataJpaHospitalManagement.entity.Patient;
 import com.sandesh.springDataJpaHospitalManagement.service.PatientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,9 +47,15 @@ public class PatientController {
         return list;
     }
 
+//    @GetMapping("/allPatientNativeQuery")
+//    public List<Patient> getAllPatientNativeQuery(){
+//        return patientService.getAllPatientByNativeQuery(PageRequest.of(0,2));
+//    }
+
     @GetMapping("/allPatientNativeQuery")
     public ArrayList<Patient> getAllPatientNativeQuery(){
-        List<Patient> allPatientViaNativeMethod = patientService.getAllPatientByNativeQuery();
-        return new ArrayList<>(allPatientViaNativeMethod);
+        List<Patient> patients = patientService.getAllPatientByNativeQuery();
+        return new ArrayList<>(patients);
     }
+
 }
