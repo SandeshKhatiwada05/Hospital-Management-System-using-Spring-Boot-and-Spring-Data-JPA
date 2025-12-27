@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PatientRepository extends JpaRepository<Patient,Long> {
+public interface PatientRepository<Pageable> extends JpaRepository<Patient,Long> {
     Patient findByName(String name);
 //    Patient findByEmailorPhoneNumber(String email, Long phone);
 
@@ -25,4 +25,11 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
 
     @Query(value = "select * from Patient_Db", nativeQuery = true)
     List<Patient> findAllPatientsNativeQuery();
+
+//        @Query(
+//                value = "SELECT * FROM Patient_Db",
+//                nativeQuery = true
+//        )
+//        List<Patient> findAllPatientsNativeQuery(Pageable pageable);
+
 }
