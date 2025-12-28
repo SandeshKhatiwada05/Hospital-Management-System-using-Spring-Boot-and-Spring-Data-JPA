@@ -3,7 +3,7 @@ package com.sandesh.springDataJpaHospitalManagement.repository;
 import com.sandesh.springDataJpaHospitalManagement.entity.Patient;
 import java.util.*;
 
-import com.sandesh.springDataJpaHospitalManagement.entity.type.GenderType;
+import com.sandesh.springDataJpaHospitalManagement.entity.enumTypes.GenderType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
