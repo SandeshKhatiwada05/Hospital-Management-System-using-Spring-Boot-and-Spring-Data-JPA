@@ -1,5 +1,7 @@
 package com.sandesh.springDataJpaHospitalManagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sandesh.springDataJpaHospitalManagement.entity.enumTypes.*;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,6 +22,7 @@ public class Bima {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     Long bimaId;
 
     @Column(nullable = false)
@@ -43,8 +46,8 @@ public class Bima {
     @Column(nullable = false)
     BigDecimal bimaAmount;
 
-    //inverse side to show it has been mapped
+    // inverse side to show it has been mapped
     @OneToOne(mappedBy = "bima")
+    @JsonBackReference
     private Patient patient;
-
 }
