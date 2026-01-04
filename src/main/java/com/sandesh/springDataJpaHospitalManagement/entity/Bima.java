@@ -43,4 +43,8 @@ public class Bima {
     @Column(nullable = false)
     BigDecimal bimaAmount;
 
+    //inverse side to show it has been mapped
+    @OneToOne(mappedBy = "bima")
+    private Patient patient;
+
 }

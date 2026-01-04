@@ -50,6 +50,7 @@ public class Patient {
     @Column(updatable = false) //@CreationTimestamp does better, not required
     private LocalDateTime createAt;
 
+    //this is called owning side, inverse side is in class Bima
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "nepal_bima_number")
     Bima bima;
