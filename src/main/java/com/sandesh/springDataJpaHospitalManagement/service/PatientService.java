@@ -53,6 +53,10 @@ public class PatientService {
         return patientList;
     }
 
+    public Patient insertPatientInfo(Patient patient) {
+        return (Patient) patientRepository.save(patient);
+    }
+
 //    public List<Patient> getAllPatientByNativeQuery(PageRequest pageRequest) {
 //        return patientRepository.findAllPatientsNativeQuery(pageRequest);
 //    }

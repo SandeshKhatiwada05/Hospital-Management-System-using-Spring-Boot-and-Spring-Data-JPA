@@ -5,9 +5,8 @@ import com.sandesh.springDataJpaHospitalManagement.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
@@ -56,6 +55,12 @@ public class PatientController {
     public ArrayList<Patient> getAllPatientNativeQuery(){
         List<Patient> patients = patientService.getAllPatientByNativeQuery();
         return new ArrayList<>(patients);
+    }
+
+    @PostMapping("/insertPatient")
+    public Patient insertPatient(@RequestBody Patient patient){
+        Patient patient1 = patientService.insertPatientInfo(patient);
+        return patient1;
     }
 
 }
