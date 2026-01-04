@@ -24,4 +24,12 @@ public class Visit {
     @Column(nullable = false)
     private String descriptionForVisit;
 
+    //Many Appointments , One Patient
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id", nullable = false)
+    private Doctor doctor;
 }
