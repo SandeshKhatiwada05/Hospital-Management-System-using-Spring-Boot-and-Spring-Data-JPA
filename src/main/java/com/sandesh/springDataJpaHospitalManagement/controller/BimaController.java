@@ -2,6 +2,7 @@ package com.sandesh.springDataJpaHospitalManagement.controller;
 
 import com.sandesh.springDataJpaHospitalManagement.DTO.BimaDTO;
 import com.sandesh.springDataJpaHospitalManagement.entity.Bima;
+import com.sandesh.springDataJpaHospitalManagement.entity.Patient;
 import com.sandesh.springDataJpaHospitalManagement.service.BimaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,5 +31,10 @@ public class BimaController {
     @GetMapping("/bimas")
     public List<Bima> getAllBimas() {
         return bimaService.getAllBimas();
+    }
+
+    @PutMapping("/removeBimaFromPatient/{patient_id}")
+    public Patient removeBimaFromPatient(Long patient_id){
+        return bimaService.removeBimaFromPatient(patient_id);
     }
 }

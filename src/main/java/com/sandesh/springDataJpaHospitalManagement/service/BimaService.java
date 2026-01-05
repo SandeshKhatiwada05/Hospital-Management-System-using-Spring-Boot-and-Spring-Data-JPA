@@ -44,4 +44,10 @@ public class BimaService {
     public List<Bima> getAllBimas() {
         return bimaRepository.findAll();
     }
+
+    public Patient removeBimaFromPatient(Long patientId) {
+        Patient patient = (Patient) patientRepository.findById(patientId).orElseThrow();
+        patient.setBima(null);
+        return patient;
+    }
 }
