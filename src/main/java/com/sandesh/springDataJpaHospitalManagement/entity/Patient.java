@@ -52,7 +52,7 @@ public class Patient {
     private LocalDateTime createAt;
 
     //this is called owning side, inverse side is in class Bima
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "nepal_bima_number")
     Bima bima;
 

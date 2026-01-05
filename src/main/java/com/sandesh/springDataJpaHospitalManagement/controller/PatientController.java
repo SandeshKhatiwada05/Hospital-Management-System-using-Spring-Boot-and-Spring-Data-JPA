@@ -63,4 +63,9 @@ public class PatientController {
         return patient1;
     }
 
+    @GetMapping("/patientWithBimaInformation")
+    public List<Patient> getPatientWithBimaInformation(){
+        return patientService.getPatientAndBimaInformation();
+    }
+
 }

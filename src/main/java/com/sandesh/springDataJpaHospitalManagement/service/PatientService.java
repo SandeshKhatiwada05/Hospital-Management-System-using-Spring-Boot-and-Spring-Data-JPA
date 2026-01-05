@@ -57,6 +57,11 @@ public class PatientService {
         return (Patient) patientRepository.save(patient);
     }
 
+    public List<Patient> getPatientAndBimaInformation(){
+        List<Patient> patientList = patientRepository.findAll();
+        return patientList;
+    }
+
 //    public List<Patient> getAllPatientByNativeQuery(PageRequest pageRequest) {
 //        return patientRepository.findAllPatientsNativeQuery(pageRequest);
 //    }

@@ -1,8 +1,12 @@
 package com.sandesh.springDataJpaHospitalManagement.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,4 +20,5 @@ public class Doctor {
     private String doctorEmail;
 
     private String specialization;
+
 }
