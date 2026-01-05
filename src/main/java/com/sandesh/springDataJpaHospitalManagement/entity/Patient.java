@@ -1,5 +1,6 @@
 package com.sandesh.springDataJpaHospitalManagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sandesh.springDataJpaHospitalManagement.entity.enumTypes.BimaStatus;
 import com.sandesh.springDataJpaHospitalManagement.entity.enumTypes.GenderType;
 import jakarta.persistence.*;
@@ -57,5 +58,6 @@ public class Patient {
     Bima bima;
 
     @OneToMany(mappedBy = "patient")
+    @JsonManagedReference
     private List<Visit> visits;
 }

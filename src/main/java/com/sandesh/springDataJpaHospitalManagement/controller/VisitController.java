@@ -13,7 +13,7 @@ public class VisitController {
     private final VisitService visitService;
 
     @PostMapping("/visitingService/{doctor_id}/{patient_id}")
-    public Patient insertVisitOfPatient(@RequestBody VisitDTO visitDTO, @PathVariable Long doctor_id, @PathVariable Long patient_id) {
+    public Patient insertVisitOfPatient(@RequestBody VisitDTO visitDTO, @PathVariable Long doctor_id, @PathVariable Long patient_id) throws Throwable {
         return visitService.insertVisting(visitDTO, doctor_id, patient_id);
     }
 

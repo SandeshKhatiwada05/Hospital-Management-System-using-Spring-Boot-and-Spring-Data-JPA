@@ -11,6 +11,8 @@ import com.sandesh.springDataJpaHospitalManagement.repository.VisitRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,16 +23,31 @@ public class VisitService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final MapperConfig modelMapperConfig;
+
+
     @Transactional
-    public Patient insertVisting(VisitDTO visitDTO, Long doctorId, Long patientId) {
-        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow();
-        Patient patient = (Patient) patientRepository.findById(patientId).orElseThrow();
+    public Patient insertVisting(VisitDTO visitDTO, Long doctorId, Long patientId) throws Throwable {
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
+
+        Patient patient = (Patient) patientRepository.findById(patientId)
+                .orElseThrow(() -> new IllegalArgumentException("Patient not found"));
 
         Visit visit = modelMapperConfig.modelMapper().map(visitDTO, Visit.class);
-        if (visit.getVisitId() != null) throw new IllegalArgumentException("Such data already present");
-        patient.setVisits((List<Visit>) visit);
+
+        if (visit.getVisitId() != null)
+            throw new IllegalArgumentException("Such data already present");
+
+        if (patient.getVisits() == null)
+            patient.setVisits(new ArrayList<>());
+
+        patient.getVisits().add(visit);  // Add visit to the list
         visit.setPatient(patient);
         visit.setDoctor(doctor);
+
+        visitRepository.save(visit);  // ensure it persists
+
         return patient;
     }
+
 }

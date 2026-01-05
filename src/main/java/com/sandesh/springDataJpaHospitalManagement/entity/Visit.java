@@ -1,5 +1,6 @@
 package com.sandesh.springDataJpaHospitalManagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class Visit {
     //Many Appointments , One Patient
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
+    @JsonBackReference
     private Patient patient;
 
     @ManyToOne
