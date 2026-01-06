@@ -25,7 +25,7 @@ import java.util.List;
                 @UniqueConstraint(name = "unique_email_phone", columnNames = {"name", "email"})
         },
         indexes = {
-                @Index(name = "indx_name", columnList = "name")
+                @Index(name = "indx_name", columnList = "patient_name")
         }
 )
 public class Patient {

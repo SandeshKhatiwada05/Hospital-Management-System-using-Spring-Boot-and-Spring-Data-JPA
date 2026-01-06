@@ -57,15 +57,4 @@ public class PatientController {
         return new ArrayList<>(patients);
     }
 
-    @PostMapping("/insertPatient")
-    public Patient insertPatient(@RequestBody Patient patient){
-        Patient patient1 = patientService.insertPatientInfo(patient);
-        return patient1;
-    }
-
-    @GetMapping("/patientWithBimaInformation")
-    public List<Patient> getPatientWithBimaInformation(){
-        return patientService.getPatientAndBimaInformation();
-    }
-
 }
