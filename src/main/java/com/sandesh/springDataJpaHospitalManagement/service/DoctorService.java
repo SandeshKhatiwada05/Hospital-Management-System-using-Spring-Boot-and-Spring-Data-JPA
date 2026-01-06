@@ -1,11 +1,10 @@
 package com.sandesh.springDataJpaHospitalManagement.service;
 
 import com.sandesh.springDataJpaHospitalManagement.DTO.DoctorDTO;
-import com.sandesh.springDataJpaHospitalManagement.config.MapperConfig;
+import com.sandesh.springDataJpaHospitalManagement.config.ApplicationConfig;
 import com.sandesh.springDataJpaHospitalManagement.entity.Doctor;
 import com.sandesh.springDataJpaHospitalManagement.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DoctorService {
     private final DoctorRepository doctorRepository;
-    private final MapperConfig modelMapperConfig;
+    private final ApplicationConfig modelApplicationConfig;
 
     public Doctor saveDoctorInfo(DoctorDTO doctorDTO) {
-        Doctor doctor = modelMapperConfig.modelMapper().map(doctorDTO, Doctor.class);
+        Doctor doctor = modelApplicationConfig.modelMapper().map(doctorDTO, Doctor.class);
         return doctorRepository.save(doctor);
     }
 
