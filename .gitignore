@@ -5,8 +5,8 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 
 # Spring Boot config (real secrets only)
-src/main/resources/application.properties
-src/main/resources/application.yml
+#src/main/resources/application.properties
+#src/main/resources/application.yml
 
 # Logs
 *.log

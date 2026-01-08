@@ -14,11 +14,15 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
+    private final AuthUtil authUtil;
 
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword())
         );
         AccessingUser user = (AccessingUser) authentication.getPrincipal();
+
+        String token = authUtil.generateToken(user);
+        return new LoginResponseDTO(token, user.getId());
     }
 }
