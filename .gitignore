@@ -1,10 +1,17 @@
-HELP.md
+# Maven
 target/
-.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+.mvn/wrapper/maven-wrapper.jar
 
-### STS ###
+# Spring Boot config (real secrets only)
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+# Logs
+*.log
+
+# STS
 .apt_generated
 .classpath
 .factorypath
@@ -12,16 +19,14 @@ target/
 .settings
 .springBeans
 .sts4-cache
-.yml
-*.log
 
-### IntelliJ IDEA ###
-.idea
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -31,5 +36,5 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+# VS Code
 .vscode/

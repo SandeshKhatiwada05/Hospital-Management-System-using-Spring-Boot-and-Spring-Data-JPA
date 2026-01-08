@@ -2,11 +2,23 @@ package com.sandesh.springDataJpaHospitalManagement.security;
 
 import com.sandesh.springDataJpaHospitalManagement.DTO.LoginRequestDTO;
 import com.sandesh.springDataJpaHospitalManagement.DTO.LoginResponseDTO;
-import org.springframework.http.ResponseEntity;
+import com.sandesh.springDataJpaHospitalManagement.entity.AccessingUser;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
+
+    private final AuthenticationManager authenticationManager;
+
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword())
+        );
+        AccessingUser user = (AccessingUser) authentication.getPrincipal();
     }
 }
