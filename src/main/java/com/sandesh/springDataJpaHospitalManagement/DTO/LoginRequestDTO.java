@@ -1,12 +1,13 @@
 package com.sandesh.springDataJpaHospitalManagement.DTO;
 
-import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
-public class AcessingUserDTO {
-
-    private Long id;
+@Getter
+@Setter
+public class LoginRequestDTO {
     private String username;
     private String password;
 }
