@@ -13,6 +13,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class ApplicationConfig {
 
+    @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
