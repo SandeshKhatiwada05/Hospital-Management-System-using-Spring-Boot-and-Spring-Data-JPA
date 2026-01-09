@@ -1,6 +1,7 @@
 package com.sandesh.springDataJpaHospitalManagement.security;
 
 import com.sandesh.springDataJpaHospitalManagement.entity.AccessingUser;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,4 +31,12 @@ public class AuthUtil {
                 .compact();
     }
 
+    public String extractUsername(String jwtToken) {
+        Claims payload =  Jwts.parser()
+                .verifyWith(getSecretKey())
+                .build()
+                .parseSignedClaims(jwtToken)
+                .getPayload();
+        return  payload.getSubject();
+    }
 }
