@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +22,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final AuthUtil authUtil;
     private final ApplicationConfig applicationConfig;
+    private final PasswordEncoder passwordEncoder;
 
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
         Authentication authentication = authenticationManager.authenticate(
@@ -32,12 +34,17 @@ public class AuthService {
         return new LoginResponseDTO(token, user.getId());
     }
 
+
     public SignupResponseDTO signup(LoginRequestDTO signupRequestDTO) {
-        AccessingUser user = accessingUserRepository.findByUsername(signupRequestDTO.getUsername()).orElse(null);
+        accessingUserRepository.findByUsername(signupRequestDTO.getUsername())
+                .ifPresent(u -> { throw new RuntimeException("User already exists"); });
 
-        if (user != null) throw new RuntimeException("User already exists");
+        AccessingUser user = AccessingUser.builder()
+                .username(signupRequestDTO.getUsername())
+                .password(passwordEncoder.encode(signupRequestDTO.getPassword()))
+                .build();
 
-        user = accessingUserRepository.save(AccessingUser.builder().username(signupRequestDTO.getUsername()).build());
+        user = accessingUserRepository.save(user);
         return applicationConfig.modelMapper().map(user, SignupResponseDTO.class);
     }
 }
