@@ -1,6 +1,7 @@
 package com.sandesh.springDataJpaHospitalManagement.security;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,8 +11,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
 
 @Configuration
+@Slf4j
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
@@ -37,7 +40,12 @@ public class WebSecurityConfig {
 
 
                 )
-                .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
+                .oauth2Login(oauth2 -> oauth2.failureHandler(
+                        (request, response, exception) -> {
+                            log.error("OAuth2 Login failed: {}", exception.getMessage());
+                        }
+                ));
 //                .formLogin(Customizer.withDefaults());
 
         return http.build();

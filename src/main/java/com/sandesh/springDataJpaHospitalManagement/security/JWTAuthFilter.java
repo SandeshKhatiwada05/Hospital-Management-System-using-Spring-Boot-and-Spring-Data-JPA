@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -24,37 +25,57 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     private final AuthUtil authUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("Request incoming: {}", request.getRequestURI());
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
+    ) throws ServletException, IOException {
 
-        final String header = request.getHeader("Authorization");
-        if (header == null || !header.startsWith("Bearer ")) {
+        final String authHeader = request.getHeader("Authorization");
+
+        // 1. No header or wrong prefix → not our problem
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        final String jwtToken = header.substring(7).trim(); // remove "Bearer "
+        final String jwtToken = authHeader.substring(7);
+
         String username;
         try {
+            // 2. Extract username from JWT
             username = authUtil.extractUsername(jwtToken);
         } catch (Exception e) {
-            log.warn("Failed to extract username from JWT: {}", e.getMessage());
+            log.warn("Invalid JWT token: {}", e.getMessage());
             filterChain.doFilter(request, response);
             return;
         }
 
+        // 3. Authenticate only if SecurityContext is empty
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
             AccessingUser user = userRepository.findByUsername(username).orElse(null);
+
             if (user != null) {
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authToken);
-                log.info("User authenticated: {}", username);
-            } else {
-                log.debug("No user found for username: {}", username);
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                user,
+                                null,
+                                user.getAuthorities()
+                        );
+
+                authentication.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                );
+
+                // 4. Store authentication in SecurityContext
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                log.info("JWT authenticated user: {}", username);
             }
         }
 
+        // 5. Continue filter chain
         filterChain.doFilter(request, response);
     }
 }
