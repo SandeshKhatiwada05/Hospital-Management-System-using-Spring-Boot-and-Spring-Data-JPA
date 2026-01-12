@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sign in — Hospital Management</title>
+  <style>
+    :root {
+      --bg:#e6f0f9;
+      --card:#ffffff;
+      --accent:#0d6efd;
+      --accent-alt:#20c997;
+      --muted:#6c757d;
+      --white:#fff;
+      --danger:#dc3545;
+      --font:'Inter', sans-serif;
+      --glass: rgba(255,255,255,0.9);
+    }
+
+    /* Reset */
+    * { box-sizing: border-box; margin:0; padding:0; }
+
+    body, html {
+      height:100%;
+      font-family: var(--font);
+      background: linear-gradient(135deg, #cfe2ff, #e6f0f9);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+    }
+
+    .container {
+      display:grid;
+      grid-template-columns: 1fr 400px;
+      gap:40px;
+      max-width:960px;
+      width:100%;
+    }
+
+    /* Panel */
+    .panel {
+      background: var(--card);
+      border-radius: 20px;
+      padding:36px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    /* Brand */
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+    }
+
+    .logo {
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      color:var(--white);
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      font-size:28px;
+      box-shadow: 0 6px 18px rgba(13,110,253,0.3);
+    }
+
+    /* Headings */
+    .headline {
+      font-size:24px;
+      font-weight:700;
+      color:#0d6efd;
+    }
+
+    .sub {
+      font-size:14px;
+      color: var(--muted);
+      margin-top:4px;
+    }
+
+    /* Form */
+    form {
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    label {
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .input {
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid #dee2e6;
+      background: var(--glass);
+      color:#212529;
+      font-size:14px;
+      outline:none;
+      transition: all 0.2s ease;
+    }
+
+    .input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 4px 15px rgba(13,110,253,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* Row for remember me */
+    .row {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    /* Buttons */
+    .btn {
+      padding:14px 16px;
+      border-radius:12px;
+      border:none;
+      font-weight:600;
+      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+      color:var(--white);
+      cursor:pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(13,110,253,0.3);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    /* OAuth linux-style buttons */
+    .oauth {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .oauth a {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px;
+      border-radius:8px;
+      font-weight:600;
+      text-decoration:none;
+      background:#f8f9fa;
+      color:#212529;
+      border:1px solid #ced4da;
+      font-family: 'Courier New', monospace;
+      transition:all 0.15s ease;
+    }
+
+    .oauth a:hover {
+      background:#e9ecef;
+      transform: translateY(-1px);
+    }
+
+    .icon {
+      width:28px;
+      height:28px;
+      display:grid;
+      place-items:center;
+      font-size:14px;
+      border-radius:6px;
+      background:#dee2e6;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Right panel info cards */
+    .right {
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .info-card {
+      background:#f8f9fa;
+      padding:24px;
+      border-radius:16px;
+      border:1px solid #dee2e6;
+    }
+
+    .info-card h3 {
+      margin:0 0 10px 0;
+      font-size:18px;
+      color:var(--accent);
+    }
+
+    .info-card p {
+      margin:0;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    /* Footer */
+    footer {
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+      margin-top:20px;
+    }
+
+    @media(max-width:900px) {
+      .container { grid-template-columns:1fr; }
+      .right { order:-1; }
+    }
+  </style>
+</head>
+<body>
+<main class="container">
+  <section class="panel">
+    <div class="brand">
+      <div class="logo">💉</div>
+      <div>
+        <h1 class="headline">Hospital Management</h1>
+        <div class="sub">Secure sign in to your dashboard</div>
+      </div>
+    </div>
+
+    <form id="loginForm" action="/login" method="post" autocomplete="on">
+      <input type="hidden" name="_csrf" id="_csrf_token" value="">
+
+      <div>
+        <label for="username">Username</label>
+        <input id="username" name="username" class="input" type="text" required autofocus>
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" class="input" type="password" required>
+      </div>
+
+      <div class="row">
+        <label>
+          <input type="checkbox" name="remember-me"> <span style="font-size:13px; color:var(--muted)">Remember me</span>
+        </label>
+        <a href="#" class="sub" style="text-decoration:none;">Forgot?</a>
+      </div>
+
+      <button type="submit" class="btn">Sign in</button>
+
+      <div style="display:flex; align-items:center; gap:10px; margin-top:14px;">
+        <div style="height:1px; background:#dee2e6; flex:1;"></div>
+        <div style="color:var(--muted); font-size:13px;">Or continue with</div>
+        <div style="height:1px; background:#dee2e6; flex:1;"></div>
+      </div>
+
+      <div class="oauth">
+        <a href="/oauth2/authorization/google">
+          <span class="icon">$</span> Continue with Google
+        </a>
+        <a href="/oauth2/authorization/github">
+          <span class="icon">#</span> Continue with GitHub
+        </a>
+      </div>
+    </form>
+
+    <footer>© <span id="year"></span> Hospital Management • All rights reserved.</footer>
+  </section>
+
+  <aside class="right">
+    <div class="info-card">
+      <h3>Quick Summary</h3>
+      <p>Access the admin dashboard to manage patients, visits, and claims. Use OAuth for single sign-on.</p>
+    </div>
+
+    <div class="info-card">
+      <h3>Security</h3>
+      <p>Passwords are encrypted on the server. Enable HTTPS and strong JWT secrets in production.</p>
+    </div>
+  </aside>
+</main>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

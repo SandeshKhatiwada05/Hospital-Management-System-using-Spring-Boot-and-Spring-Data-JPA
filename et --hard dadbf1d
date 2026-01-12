@@ -1,0 +1,50 @@
+[33m10e30b0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: Branch: renamed refs/heads/clean-main to refs/heads/main
+[33m10e30b0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{2}: commit (initial): Clean history without secrets
+[33mdd1684f[m HEAD@{3}: commit: Add env-based application.properties
+[33m6034b73[m HEAD@{4}: commit: Remove application.properties from version control
+[33m4efbbce[m HEAD@{5}: commit: OAuth Login html created and user token captured via OAuth2AuthenticationToken, and kept secret keys under environment variable rather than application.properties
+[33m5498627[m HEAD@{6}: commit: OAuth Login html created and user token captured via OAuth2AuthenticationToken, and Stopped tracking application.propertie
+[33mb0f3d31[m HEAD@{7}: commit: OAuth Login html created and user token captured via OAuth2AuthenticationToken
+[33m15a7178[m HEAD@{8}: commit: adding oauth2, and it's login screen in our project (only connected google as of now)
+[33m46b8379[m HEAD@{9}: commit: add GlobalExceptionHandler to standardize API errors across security, JWT, validation, and persistence layers
+[33m37811c4[m HEAD@{10}: commit: Configuring the Web Security filter chain, JWTAuthFilter to Authenticate Requests
+[33m877830f[m HEAD@{11}: commit: auth signup configured and corrections done to be fetched via postman, swagger not used due to some issues
+[33mcc91b3a[m HEAD@{12}: commit: Signup a new user
+[33m3f23798[m HEAD@{13}: commit: creation of /login using jwt
+[33mf5bcc55[m HEAD@{14}: commit: Remove application.properties from version control
+[33m5242b49[m HEAD@{15}: commit: protection of application.properties
+[33m9c0b114[m HEAD@{16}: commit: Uisng JWT, Storing the User Table in DB
+[33mc8d6b55[m HEAD@{17}: commit: not allowing userdeatils to be hardcoded
+[33mcada554[m HEAD@{18}: commit: Configure Custom Authentication and User via UserDetailsService and application.properties
+[33m71c2572[m HEAD@{19}: commit: Spring Security and Understanding the Security Filter Chain
+[33m45f8ae6[m HEAD@{20}: merge master: Fast-forward
+[33m4756eca[m HEAD@{21}: checkout: moving from main to main
+[33m4756eca[m HEAD@{22}: checkout: moving from master to main
+[33m45f8ae6[m HEAD@{23}: commit: m:n classes, making rest controller for visit, controlling DTO, using alternative of JsonBackReference and JsonManagedReference for swagger issues, orphan removal, fetch type
+[33ma643d7c[m HEAD@{24}: commit: m:n classes, making rest controller for visit, controlling DTO, using alternative of JsonBackReference and JsonManagedReference for swagger issues
+[33m80a1cc2[m HEAD@{25}: commit: Doctor, visit and different controllers added, improvization reamining
+[33m4dcfedc[m HEAD@{26}: commit: sonarcloud automatic functional, now working for master
+[33m4756eca[m HEAD@{27}: checkout: moving from main to master
+[33m4756eca[m HEAD@{28}: commit: solution to error in build and analyze
+[33m2c95527[m HEAD@{29}: commit: solution to issue: Invalid workflow file: .github/workflows/build.yml#L1
+[33m3d41e12[m HEAD@{30}: commit: fixing issue of sonarcloud
+[33medcf19c[m HEAD@{31}: commit: sonar cloud added for better code review
+[33mec41f34[m HEAD@{32}: commit: Mapping and creation of other classes and use of jpa buddy for faster code, also embedding bima and patient, for futher improvization to few patient and bima together
+[33m807d893[m HEAD@{33}: commit: JPA Buddy
+[33mc75b761[m HEAD@{34}: commit: Swagger and one to one mapping
+[33mdadbf1d[m HEAD@{35}: commit: One to one mapping
+[33ma54835c[m HEAD@{36}: commit: pagenation
+[33m8ef1eb1[m HEAD@{37}: commit: 22:36 Group by query in JPQL
+[33m5686882[m HEAD@{38}: commit: JPQL
+[33m2ed66ae[m HEAD@{39}: pull origin main --rebase (finish): returning to refs/heads/main
+[33m2ed66ae[m HEAD@{40}: pull origin main --rebase (pick): query methods in jpa
+[33m55127e4[m HEAD@{41}: pull origin main --rebase (start): checkout 55127e47698a6792036f6287e79053d4d0cac230
+[33mb71fa58[m HEAD@{42}: commit: query methods in jpa
+[33me7c1217[m HEAD@{43}: commit: Enumeration and data initialization
+[33m3239aee[m HEAD@{44}: commit: Postgres queries (works well in ubuntu)
+[33m55775af[m HEAD@{45}: commit: Table Annotation, Unique constraints, and Indexes
+[33m888eb9c[m HEAD@{46}: commit: Understanding PersistenceContext
+[33m0cfe6b7[m HEAD@{47}: commit: Get Query using JPARepository
+[33mafac304[m HEAD@{48}: commit: postgres, hibernate-ddl, Entity Annotation
+[33md6e9ea1[m HEAD@{49}: Branch: renamed refs/heads/master to refs/heads/main
+[33md6e9ea1[m HEAD@{51}: commit (initial): first commit

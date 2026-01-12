@@ -19,8 +19,8 @@ import org.springframework.security.web.authentication.AuthenticationEntryPointF
 public class WebSecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
-    private final PasswordEncoder passwordEncoder;
     private final JWTAuthFilter jwtAuthFilter;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,6 +31,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/swagger-ui/**", "/auth/**").permitAll() //just for swagger
                                 .requestMatchers("/public/**").permitAll()
+                                .requestMatchers("/login", "/login.html", "/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico").permitAll()
                                 .anyRequest().authenticated()
 
 
@@ -41,11 +42,17 @@ public class WebSecurityConfig {
 
                 )
                 .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
-                .oauth2Login(oauth2 -> oauth2.failureHandler(
-                        (request, response, exception) -> {
-                            log.error("OAuth2 Login failed: {}", exception.getMessage());
-                        }
-                ));
+                // inside securityFilterChain(...)
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")                       // use your page
+                        .failureHandler((request, response, exception) ->
+                                log.error("OAuth2 Login failed: {}", exception.getMessage()))
+                        .successHandler(oAuth2SuccessHandler)
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")                       // allow form login on same page
+                        .permitAll()
+                );
 //                .formLogin(Customizer.withDefaults());
 
         return http.build();
