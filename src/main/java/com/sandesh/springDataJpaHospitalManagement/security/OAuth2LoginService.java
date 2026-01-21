@@ -26,6 +26,7 @@ public class OAuth2LoginService {
 
         AuthProviderType providerType =
                 authUtil.getProviderTypeFromRegistrationId(registrationId);
+
         String providerId =
                 authUtil.findByProviderIdFromOAuth2User(oAuth2User, registrationId);
 
@@ -35,22 +36,29 @@ public class OAuth2LoginService {
 
         String email = oAuth2User.getAttribute("email");
 
-        if (user == null) {
-            if (email != null && userRepository.findByUsername(email).isPresent()) {
-                throw new BadCredentialsException(
-                        "Email already linked with another provider"
-                );
-            }
+        AccessingUser emailUser =
+                email == null ? null : userRepository.findByUsername(email).orElse(null);
+
+        if (user == null && emailUser == null) {
 
             String username =
-                    authUtil.determineUsernameFromOAuth2User(oAuth2User, registrationId, providerId);
+                    authUtil.determineUsernameFromOAuth2User(
+                            oAuth2User,
+                            registrationId,
+                            providerId
+                    );
 
-            user = userRepository.save(
-                    AccessingUser.builder()
-                            .username(username)
-                            .providerId(providerId)
-                            .providerType(providerType)
-                            .build()
+            user = AccessingUser.builder()
+                    .username(username)
+                    .providerId(providerId)
+                    .providerType(providerType)
+                    .build();
+
+            user = userRepository.save(user);
+
+        } else if (user == null) {
+            throw new BadCredentialsException(
+                    "Email already registered with provider " + emailUser.getProviderType()
             );
         }
 

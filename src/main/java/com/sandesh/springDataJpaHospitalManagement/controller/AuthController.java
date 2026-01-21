@@ -2,6 +2,7 @@ package com.sandesh.springDataJpaHospitalManagement.controller;
 
 import com.sandesh.springDataJpaHospitalManagement.DTO.LoginRequestDTO;
 import com.sandesh.springDataJpaHospitalManagement.DTO.LoginResponseDTO;
+import com.sandesh.springDataJpaHospitalManagement.DTO.SignupResponseDTO;
 import com.sandesh.springDataJpaHospitalManagement.security.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,12 +17,16 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        return new  ResponseEntity<>(authService.login(loginRequestDTO), HttpStatus.OK);
+    public ResponseEntity<LoginResponseDTO> login(
+            @RequestBody LoginRequestDTO dto
+    ) {
+        return ResponseEntity.ok(authService.login(dto));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody LoginRequestDTO signupRequestDTO) {
-        return new  ResponseEntity<>(authService.signup(signupRequestDTO), HttpStatus.OK);
+    public ResponseEntity<SignupResponseDTO> signup(
+            @RequestBody LoginRequestDTO dto
+    ) {
+        return ResponseEntity.ok(authService.signup(dto));
     }
 }

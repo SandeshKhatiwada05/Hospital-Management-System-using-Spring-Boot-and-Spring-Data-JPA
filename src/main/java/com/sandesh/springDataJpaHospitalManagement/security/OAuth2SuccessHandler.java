@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 
 @Component
@@ -20,7 +19,7 @@ import java.io.IOException;
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final OAuth2LoginService oAuth2LoginService;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     @Override
     public void onAuthenticationSuccess(
@@ -31,19 +30,20 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         OAuth2AuthenticationToken token =
                 (OAuth2AuthenticationToken) authentication;
+
         OAuth2User oAuth2User =
                 (OAuth2User) authentication.getPrincipal();
 
-        ResponseEntity<LoginResponseDTO> result =
-                oAuth2LoginService.handleOAuth2Login(
-                        oAuth2User,
-                        token.getAuthorizedClientRegistrationId()
-                );
+        String registrationId =
+                token.getAuthorizedClientRegistrationId();
 
-        response.setStatus(result.getStatusCode().value());
+        ResponseEntity<LoginResponseDTO> loginResponse =
+                oAuth2LoginService.handleOAuth2Login(oAuth2User, registrationId);
+
+        response.setStatus(loginResponse.getStatusCode().value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(
-                objectMapper.writeValueAsString(result.getBody())
+                objectMapper.writeValueAsString(loginResponse.getBody())
         );
     }
 }
