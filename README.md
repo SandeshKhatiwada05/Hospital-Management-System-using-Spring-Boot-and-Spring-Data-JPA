@@ -42,16 +42,14 @@ This is for those who want to understand JPA beyond copying annotations.
 - Hibernate `ddl-auto` configuration
 - Database seeding and initialization
 - Best practices for designing JPA entities
+- Security (JWT, OAuth, etc.)
+- Pagination, complex filtering, or advanced query logic
 
 **Not Included** (by design):
 - Full CRUD REST APIs
 - Web controllers and HTTP endpoints
 - DTO mapping layers
 - Validation and exception handling
-- Security (JWT, OAuth, etc.)
-- Pagination, complex filtering, or advanced query logic
-
-For these features, see a different project.
 
 ---
 
